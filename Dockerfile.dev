@@ -1,0 +1,16 @@
+ARG NODE_VERSION=21
+
+FROM node:${NODE_VERSION}-alpine as base
+ENV NODE_ENV=development
+
+WORKDIR /usr/src/app
+
+COPY package*.json .
+# RUN npm install
+RUN npm ci
+
+COPY . .
+
+EXPOSE 3000
+
+CMD npm run dev
