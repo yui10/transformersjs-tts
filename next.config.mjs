@@ -1,17 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    webpack: (config, { isServer }) => {
-        if (!isServer) {
-            // Fixes npm packages that depend on `fs` module
-            config.resolve.fallback.fs = false;
-        }
-
-        config.module.rules.push({
-            test: /\.node$/,
-            use: 'node-loader',
-        });
-
-        return config;
+    // (Optional) Export as a standalone site
+    // See https://nextjs.org/docs/pages/api-reference/next-config-js/output#automatically-copying-traced-files
+    output: 'standalone', // Feel free to modify/remove this option
+    
+    // Indicate that these packages should not be bundled by webpack
+    experimental: {
+        serverComponentsExternalPackages: ['sharp', 'onnxruntime-node'],
     },
 };
 
